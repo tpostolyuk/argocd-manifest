@@ -1,11 +1,10 @@
-
 ## Argo CD configuration UPDATED
 ## Ref: https://github.com/argoproj/argo-cd
 ##
 
-# -- Provide a name in place of 'argocd'
+# -- Provide a name in place of `argocd`
 nameOverride: argocd
-# -- String to fully override '"argo-cd.fullname"'
+# -- String to fully override `"argo-cd.fullname"`
 fullnameOverride: ""
 # -- Override the Kubernetes version, which is used to evaluate certain manifests
 kubeVersionOverride: ""
@@ -18,18 +17,19 @@ crds:
   keep: true
   # -- Annotations to be added to all CRDs
   annotations: {}
+
 global:
   image:
     # -- If defined, a repository applied to all Argo CD deployments
     repository: quay.io/argoproj/argocd
     # -- Overrides the global Argo CD image tag whose default is the chart appVersion
-    tag: Select a version
+    tag: ""
     # -- If defined, a imagePullPolicy applied to all Argo CD deployments
     imagePullPolicy: IfNotPresent
   logging:
-    # -- Set the global logging format. Either: 'text' or 'json'
+    # -- Set the global logging format. Either: `text` or `json`
     format: text
-    # -- Set the global logging level. One of: 'debug', 'info', 'warn' or 'error'
+    # -- Set the global logging level. One of: `debug`, `info`, `warn` or `error`
     level: info
   # -- Annotations for the all deployed pods
   podAnnotations: {}
@@ -109,13 +109,13 @@ controller:
 
   image:
     # -- Repository to use for the application controller
-    # @default -- '""' (defaults to global.image.repository)
+    # @default -- `""` (defaults to global.image.repository)
     repository: ""
     # -- Tag to use for the application controller
-    # @default -- '""' (defaults to global.image.tag)
+    # @default -- `""` (defaults to global.image.tag)
     tag: ""
     # -- Image pull policy for the application controller
-    # @default -- '""' (defaults to global.image.imagePullPolicy)
+    # @default -- `""` (defaults to global.image.imagePullPolicy)
     imagePullPolicy: ""
 
   # -- The number of application controller pods to run.
@@ -124,24 +124,24 @@ controller:
 
   ## Application controller commandline flags
   args:
-    # -- define the application controller '--status-processors'
+    # -- define the application controller `--status-processors`
     statusProcessors: "20"
-    # -- define the application controller '--operation-processors'
+    # -- define the application controller `--operation-processors`
     operationProcessors: "10"
-    # -- define the application controller '--app-hard-resync'
+    # -- define the application controller `--app-hard-resync`
     appHardResyncPeriod: "0"
-    # -- define the application controller '--app-resync'
+    # -- define the application controller `--app-resync`
     appResyncPeriod: "180"
-    # -- define the application controller '--self-heal-timeout-seconds'
+    # -- define the application controller `--self-heal-timeout-seconds`
     selfHealTimeout: "5"
-    # -- define the application controller '--repo-server-timeout-seconds'
+    # -- define the application controller `--repo-server-timeout-seconds`
     repoServerTimeoutSeconds: "60"
 
-  # -- Application controller log format. Either 'text' or 'json'
-  # @default -- '""' (defaults to global.logging.format)
+  # -- Application controller log format. Either `text` or `json`
+  # @default -- `""` (defaults to global.logging.format)
   logFormat: ""
-  # -- Application controller log level. One of: 'debug', 'info', 'warn' or 'error'
-  # @default -- '""' (defaults to global.logging.level)
+  # -- Application controller log level. One of: `debug`, `info`, `warn` or `error`
+  # @default -- `""` (defaults to global.logging.level)
   logLevel: ""
 
   # -- Additional command line arguments to pass to application controller
@@ -151,7 +151,7 @@ controller:
   env: []
 
   # -- envFrom to pass to application controller
-  # @default -- '[]' (See [values.yaml])
+  # @default -- `[]` (See [values.yaml])
   envFrom: []
   # - configMapRef:
   #     name: config-map-name
@@ -319,9 +319,9 @@ controller:
       #   labels:
       #     severity: warning
       #   annotations:
-      #     summary: "[{{'{{$labels.name}}'}}] Application not synchronized"
+      #     summary: "[{{`{{$labels.name}}`}}] Application not synchronized"
       #     description: >
-      #       The application [{{'{{$labels.name}}'}} has not been synchronized for over
+      #       The application [{{`{{$labels.name}}`}} has not been synchronized for over
       #       12 hours which means that the state of this cloud has drifted away from the
       #       state inside Git.
     #   selector:
@@ -426,24 +426,24 @@ dex:
     # -- Dex image tag
     tag: v2.30.2
     # -- Dex imagePullPolicy
-    # @default -- '""' (defaults to global.image.imagePullPolicy)
+    # @default -- `""` (defaults to global.image.imagePullPolicy)
     imagePullPolicy: ""
   initImage:
     # -- Argo CD init image repository
-    # @default -- '""' (defaults to global.image.repository)
+    # @default -- `""` (defaults to global.image.repository)
     repository: ""
     # -- Argo CD init image tag
-    # @default -- '""' (defaults to global.image.tag)
+    # @default -- `""` (defaults to global.image.tag)
     tag: ""
     # -- Argo CD init image imagePullPolicy
-    # @default -- '""' (defaults to global.image.imagePullPolicy)
+    # @default -- `""` (defaults to global.image.imagePullPolicy)
     imagePullPolicy: ""
 
   # -- Environment variables to pass to the Dex server
   env: []
 
   # -- envFrom to pass to the Dex server
-  # @default -- '[]' (See [values.yaml])
+  # @default -- `[]` (See [values.yaml])
   envFrom: []
   # - configMapRef:
   #     name: config-map-name
@@ -625,7 +625,7 @@ redis:
   env: []
 
   # -- envFrom to pass to the Redis server
-  # @default -- '[]' (See [values.yaml])
+  # @default -- `[]` (See [values.yaml])
   envFrom: []
   # - configMapRef:
   #     name: config-map-name
@@ -741,7 +741,7 @@ redis:
     service:
       # -- Metrics service type
       type: ClusterIP
-      # -- Metrics service clusterIP. 'None' makes a "headless service" (no virtual IP)
+      # -- Metrics service clusterIP. `None` makes a "headless service" (no virtual IP)
       clusterIP: None
       # -- Metrics service annotations
       annotations: {}
@@ -794,19 +794,19 @@ redis-ha:
   # -- Enables the Redis HA subchart and disables the custom Redis single node deployment
   enabled: false
   exporter:
-    # -- If 'true', the prometheus exporter sidecar is enabled
+    # -- If `true`, the prometheus exporter sidecar is enabled
     enabled: true
   persistentVolume:
     # -- Configures persistency on Redis nodes
     enabled: false
   redis:
-    # -- Redis convention for naming the cluster group: must match '^[\w-\.]+$' and can be templated
+    # -- Redis convention for naming the cluster group: must match `^[\\w-\\.]+$` and can be templated
     masterGroupName: argocd
-    # -- Any valid redis config options in this section will be applied to each server (see 'redis-ha' chart)
+    # -- Any valid redis config options in this section will be applied to each server (see `redis-ha` chart)
     # @default -- See [values.yaml]
     config:
-      # -- Will save the DB if both the given number of seconds and the given number of write operations against the DB occurred. '""'  is disabled
-      # @default -- ''""''
+      # -- Will save the DB if both the given number of seconds and the given number of write operations against the DB occurred. `""`  is disabled
+      # @default -- `'""'`
       save: '""'
   haproxy:
     # -- Enabled HAProxy LoadBalancing/Proxy
@@ -823,13 +823,13 @@ redis-ha:
     # -- Enable Redis HA topology spread constraints
     enabled: false
     # -- Max skew of pods tolerated
-    # @default -- '""' (defaults to '1')
+    # @default -- `""` (defaults to `1`)
     maxSkew: ""
     # -- Topology key for spread
-    # @default -- '""' (defaults to 'topology.kubernetes.io/zone')
+    # @default -- `""` (defaults to `topology.kubernetes.io/zone`)
     topologyKey: ""
     # -- Enforcement policy, hard or soft
-    # @default -- '""' (defaults to 'ScheduleAnyway')
+    # @default -- `""` (defaults to `ScheduleAnyway`)
     whenUnsatisfiable: ""
 
 # External Redis parameters
@@ -840,8 +840,8 @@ externalRedis:
   password: ""
   # -- External Redis server port
   port: 6379
-  # -- The name of an existing secret with Redis credentials (must contain key 'redis-password').
-  # When it's set, the 'externalRedis.password' parameter is ignored
+  # -- The name of an existing secret with Redis credentials (must contain key `redis-password`).
+  # When it's set, the `externalRedis.password` parameter is ignored
   existingSecret: ""
   # -- External Redis Secret annotations
   secretAnnotations: {}
@@ -866,7 +866,7 @@ server:
     # -- Average memory utilization percentage for the Argo CD server [HPA]
     targetMemoryUtilizationPercentage: 50
     # -- Configures the scaling behavior of the target in both Up and Down directions.
-    # This is only available on HPA apiVersion 'autoscaling/v2beta2' and newer
+    # This is only available on HPA apiVersion `autoscaling/v2beta2` and newer
     behavior: {}
       # scaleDown:
       #  stabilizationWindowSeconds: 300
@@ -882,13 +882,13 @@ server:
     #     periodSeconds: 60
   image:
     # -- Repository to use for the Argo CD server
-    # @default -- '""' (defaults to global.image.repository)
+    # @default -- `""` (defaults to global.image.repository)
     repository: "" # defaults to global.image.repository
     # -- Tag to use for the Argo CD server
-    # @default -- '""' (defaults to global.image.tag)
+    # @default -- `""` (defaults to global.image.tag)
     tag: "" # defaults to global.image.tag
     # -- Image pull policy for the Argo CD server
-    # @default -- '""' (defaults to global.image.imagePullPolicy)
+    # @default -- `""` (defaults to global.image.imagePullPolicy)
     imagePullPolicy: "" # IfNotPresent
 
   # -- Additional command line arguments to pass to Argo CD server
@@ -897,14 +897,14 @@ server:
 
   # This flag is used to either remove or pass the CLI flag --staticassets /shared/app to the Argo CD server app
   staticAssets:
-    # -- Disable deprecated flag '--staticassets'
+    # -- Disable deprecated flag `--staticassets`
     enabled: true
 
   # -- Environment variables to pass to Argo CD server
   env: []
 
   # -- envFrom to pass to Argo CD server
-  # @default -- '[]' (See [values.yaml])
+  # @default -- `[]` (See [values.yaml])
   envFrom: []
   # - configMapRef:
   #     name: config-map-name
@@ -914,11 +914,11 @@ server:
   # -- Specify postStart and preStop lifecycle hooks for your argo-cd-server container
   lifecycle: {}
 
-  # -- Argo CD server log format: Either 'text' or 'json'
-  # @default -- '""' (defaults to global.logging.format)
+  # -- Argo CD server log format: Either `text` or `json`
+  # @default -- `""` (defaults to global.logging.format)
   logFormat: ""
-  # -- Argo CD server log level. One of: 'debug', 'info', 'warn' or 'error'
-  # @default -- '""' (defaults to global.logging.level)
+  # -- Argo CD server log level. One of: `debug`, `info`, `warn` or `error`
+  # @default -- `""` (defaults to global.logging.level)
   logLevel: ""
 
   # -- Annotations to be added to server pods
@@ -1008,11 +1008,11 @@ server:
     # -- How long before the currently issued certificate's expiry cert-manager should renew the certificate. Value must be in units accepted by Go time.ParseDuration
     renewBefore: ""
     issuer:
-      # -- Certificate issuer group. Set if using an external issuer. Eg. 'cert-manager.io'
+      # -- Certificate issuer group. Set if using an external issuer. Eg. `cert-manager.io`
       group: ""
-      # -- Certificate issuer kind. Either 'Issuer' or 'ClusterIssuer'
+      # -- Certificate issuer kind. Either `Issuer` or `ClusterIssuer`
       kind: ""
-      # -- Certificate isser name. Eg. 'letsencrypt'
+      # -- Certificate isser name. Eg. `letsencrypt`
       name: ""
     # -- Certificate manager additional hosts
     additionalHosts: []
@@ -1027,9 +1027,9 @@ server:
     labels: {}
     # -- Server service type
     type: ClusterIP
-    # -- Server service http port for NodePort service type (only if 'server.service.type' is set to "NodePort")
+    # -- Server service http port for NodePort service type (only if `server.service.type` is set to "NodePort")
     nodePortHttp: 30080
-    # -- Server service https port for NodePort service type (only if 'server.service.type' is set to "NodePort")
+    # -- Server service https port for NodePort service type (only if `server.service.type` is set to "NodePort")
     nodePortHttps: 30443
     # -- Server service http port
     servicePortHttp: 80
@@ -1051,7 +1051,7 @@ server:
     externalIPs: []
     # -- Denotes if this Service desires to route external traffic to node-local or cluster-wide endpoints
     externalTrafficPolicy: ""
-    # -- Used to maintain session affinity. Supports 'ClientIP' and 'None'
+    # -- Used to maintain session affinity. Supports `ClientIP` and `None`
     sessionAffinity: ""
 
   ## Server metrics service configuration
@@ -1120,7 +1120,7 @@ server:
     # -- List of ingress paths
     paths:
       - /
-    # -- Ingress path type. One of 'Exact', 'Prefix' or 'ImplementationSpecific'
+    # -- Ingress path type. One of `Exact`, `Prefix` or `ImplementationSpecific`
     pathType: Prefix
     # -- Additional ingress paths
     extraPaths:
@@ -1145,7 +1145,7 @@ server:
     #   hosts:
     #     - argocd.example.com
 
-    # -- Uses 'server.service.servicePortHttps' instead 'server.service.servicePortHttp'
+    # -- Uses `server.service.servicePortHttps` instead `server.service.servicePortHttp`
     https: false
 
   # dedicated ingress for gRPC as documented at
@@ -1186,7 +1186,7 @@ server:
     # -- List of ingress paths for dedicated [gRPC-ingress]
     paths:
       - /
-    # -- Ingress path type for dedicated [gRPC-ingress]. One of 'Exact', 'Prefix' or 'ImplementationSpecific'
+    # -- Ingress path type for dedicated [gRPC-ingress]. One of `Exact`, `Prefix` or `ImplementationSpecific`
     pathType: Prefix
     # -- Additional ingress paths for dedicated [gRPC-ingress]
     extraPaths:
@@ -1211,7 +1211,7 @@ server:
     #   hosts:
     #     - argocd.example.com
 
-    # -- Uses 'server.service.servicePortHttps' instead 'server.service.servicePortHttp'
+    # -- Uses `server.service.servicePortHttps` instead `server.service.servicePortHttp`
     https: false
 
   # Create a OpenShift Route with SSL passthrough for UI and CLI
@@ -1253,30 +1253,34 @@ server:
     # https://argo-cd.readthedocs.io/en/latest/faq/#how-to-disable-admin-user
     admin.enabled: "true"
 
-    dex.config: |
-      connectors:
-        - type: OIDC
-          id: id
-          name: name
-          config:
-            issuer: issuer
-            clientID: clientid
-            clientSecret: secret
-            basicAuthUnsupported: true
-            insecureSkipEmailVerified: true
-            insecureEnableGroups: true
-            scopes:
-            - profile
-            - name
-      staticClients:
-      - id: greenops-sso
-        name: GreenOps SSO
-        secretEnv: GREENOPS_SSO_CLIENT_SECRET
-        redirectURIs:
-        - https://org.greenops.io/oauth2/callback
-        
+    # dex.config: |
+    #   connectors:
+    #     # GitHub example
+    #     - type: github
+    #       id: github
+    #       name: GitHub
+    #       config:
+    #         clientID: aabbccddeeff00112233
+    #         clientSecret: $dex.github.clientSecret # Alternatively $<some_K8S_secret>:dex.github.clientSecret
+    #         orgs:
+    #         - name: your-github-org
+
+    # oidc.config: |
+    #   name: AzureAD
+    #   issuer: https://login.microsoftonline.com/TENANT_ID/v2.0
+    #   clientID: CLIENT_ID
+    #   clientSecret: $oidc.azuread.clientSecret
+    #   requestedIDTokenClaims:
+    #     groups:
+    #       essential: true
+    #   requestedScopes:
+    #     - openid
+    #     - profile
+    #     - email
+
   # -- Annotations to be added to Argo CD ConfigMap
   configAnnotations: {}
+
   # -- Argo CD rbac config ([Argo CD RBAC policy])
   ## Ref: https://github.com/argoproj/argo-cd/blob/master/docs/operator-manual/rbac.md
   rbacConfig:
@@ -1287,6 +1291,16 @@ server:
     # Role definitions and bindings are in the form:
     #   g, subject, inherited-subject
     # See https://github.com/argoproj/argo-cd/blob/master/docs/operator-manual/rbac.md for additional information.
+    # policy.csv: |
+    #   # Grant all members of the group 'my-org:team-alpha; the ability to sync apps in 'my-project'
+    #   p, my-org:team-alpha, applications, sync, my-project/*, allow
+    #   # Grant all members of 'my-org:team-beta' admins
+    #   g, my-org:team-beta, role:admin
+    # policy.default is the name of the default role which Argo CD will falls back to, when
+    # authorizing API requests (optional). If omitted or empty, users may be still be able to login,
+    # but will see no apps, projects, etc...
+    # policy.default: role:readonly
+    # scopes controls which OIDC scopes to examine during rbac enforcement (in addition to `sub` scope).
   # If omitted, defaults to: '[groups]'. The scope value can be a string, or a list of strings.
   # scopes: '[cognito:groups, email]'
 
@@ -1439,7 +1453,7 @@ repoServer:
     # -- Average memory utilization percentage for the repo server [HPA]
     targetMemoryUtilizationPercentage: 50
     # -- Configures the scaling behavior of the target in both Up and Down directions.
-    # This is only available on HPA apiVersion 'autoscaling/v2beta2' and newer
+    # This is only available on HPA apiVersion `autoscaling/v2beta2` and newer
     behavior: {}
       # scaleDown:
       #  stabilizationWindowSeconds: 300
@@ -1456,13 +1470,13 @@ repoServer:
 
   image:
     # -- Repository to use for the repo server
-    # @default -- '""' (defaults to global.image.repository)
+    # @default -- `""` (defaults to global.image.repository)
     repository: "" # defaults to global.image.repository
     # -- Tag to use for the repo server
-    # @default -- '""' (defaults to global.image.tag)
+    # @default -- `""` (defaults to global.image.tag)
     tag: "" # defaults to global.image.tag
     # -- Image pull policy for the repo server
-    # @default -- '""' (defaults to global.image.imagePullPolicy)
+    # @default -- `""` (defaults to global.image.imagePullPolicy)
     imagePullPolicy: "" # IfNotPresent
 
   # -- Additional command line arguments to pass to repo server
@@ -1472,18 +1486,18 @@ repoServer:
   env: []
 
   # -- envFrom to pass to repo server
-  # @default -- '[]' (See [values.yaml])
+  # @default -- `[]` (See [values.yaml])
   envFrom: []
   # - configMapRef:
   #     name: config-map-name
   # - secretRef:
   #     name: secret-name
 
-  # -- Repo server log format: Either 'text' or 'json'
-  # @default -- '""' (defaults to global.logging.level)
+  # -- Repo server log format: Either `text` or `json`
+  # @default -- `""` (defaults to global.logging.level)
   logFormat: ""
-  # -- Repo server log level. One of: 'debug', 'info', 'warn' or 'error'
-  # @default -- '""' (defaults to global.logging.format)
+  # -- Repo server log level. One of: `debug`, `info`, `warn` or `error`
+  # @default -- `""` (defaults to global.logging.format)
   logLevel: ""
 
   # -- Annotations to be added to repo server pods
@@ -1697,7 +1711,7 @@ repoServer:
 ## Argo Configs
 configs:
   # -- Provide one or multiple [external cluster credentials]
-  # @default -- '[]' (See [values.yaml])
+  # @default -- `[]` (See [values.yaml])
   ## Ref:
   ## - https://argo-cd.readthedocs.io/en/stable/operator-manual/declarative-setup/#clusters
   ## - https://argo-cd.readthedocs.io/en/stable/operator-manual/security/#external-cluster-credentials
@@ -1726,7 +1740,7 @@ configs:
   # -- GnuPG key ring annotations
   gpgKeysAnnotations: {}
   # -- [GnuPG](https://argo-cd.readthedocs.io/en/stable/user-guide/gpg-verification/) keys to add to the key ring
-  # @default -- '{}' (See [values.yaml])
+  # @default -- `{}` (See [values.yaml])
   gpgKeys: {}
     # 4AEE18F83AFDEB23: |
     #     -----BEGIN PGP PUBLIC KEY BLOCK-----
@@ -1829,7 +1843,7 @@ configs:
   #    ...
   #    -----END OPENSSH PRIVATE KEY-----
 
-  # -- Annotations to be added to 'configs.credentialTemplates' Secret
+  # -- Annotations to be added to `configs.credentialTemplates` Secret
   credentialTemplatesAnnotations: {}
 
   # -- Repositories list to be used by applications
@@ -1849,7 +1863,7 @@ configs:
   # private-repo:
   #   url: https://github.com/argoproj/private-repo
 
-  # -- Annotations to be added to 'configs.repositories' Secret
+  # -- Annotations to be added to `configs.repositories` Secret
   repositoriesAnnotations: {}
 
   secret:
@@ -1890,15 +1904,16 @@ configs:
     #   -----END CERTIFICATE-----
 
     # -- Bcrypt hashed admin password
-    # htpasswd -nbBC 10 "" $ARGO_PWD | tr -d ':\n' | sed 's/$2y/$2a/'
+    ## Argo expects the password in the secret to be bcrypt hashed. You can create this hash with
+    ## `htpasswd -nbBC 10 "" $ARGO_PWD | tr -d ':\n' | sed 's/$2y/$2a/'`
     argocdServerAdminPassword: ""
-    # -- Admin password modification time. Eg. '"2006-01-02T15:04:05Z"'
-    # @default -- '""' (defaults to current time)
+    # -- Admin password modification time. Eg. `"2006-01-02T15:04:05Z"`
+    # @default -- `""` (defaults to current time)
     argocdServerAdminPasswordMtime: ""
 
   # -- Define custom [CSS styles] for your argo instance.
   # This setting will automatically mount the provided CSS and reference it in the argo configuration.
-  # @default -- '""' (See [values.yaml])
+  # @default -- `""` (See [values.yaml])
   ## Ref: https://argo-cd.readthedocs.io/en/stable/operator-manual/custom-styles/
   styles: ""
   # styles: |
@@ -1922,13 +1937,13 @@ applicationSet:
 
   image:
     # -- Repository to use for the application set controller
-    # @default -- '""' (defaults to global.image.repository)
+    # @default -- `""` (defaults to global.image.repository)
     repository: ""
     # -- Tag to use for the application set controller
-    # @default -- '""' (defaults to global.image.tag)
+    # @default -- `""` (defaults to global.image.tag)
     tag: ""
     # -- Image pull policy for the application set controller
-    # @default -- '""' (defaults to global.image.imagePullPolicy)
+    # @default -- `""` (defaults to global.image.imagePullPolicy)
     imagePullPolicy: ""
 
   args:
@@ -1945,11 +1960,11 @@ applicationSet:
     # -- Enable dry run mode
     dryRun: false
 
-  # -- ApplicationSet controller log format. Either 'text' or 'json'
-  # @default -- '""' (defaults to global.logging.format)
+  # -- ApplicationSet controller log format. Either `text` or `json`
+  # @default -- `""` (defaults to global.logging.format)
   logFormat: ""
-  # -- ApplicationSet controller log level. One of: 'debug', 'info', 'warn', 'error'
-  # @default -- '""' (defaults to global.logging.level)
+  # -- ApplicationSet controller log level. One of: `debug`, `info`, `warn`, `error`
+  # @default -- `""` (defaults to global.logging.level)
   logLevel: ""
 
   # -- Additional containers to be added to the applicationset controller pod
@@ -2076,7 +2091,7 @@ applicationSet:
   #   value: "value"
 
   # -- envFrom to pass to the controller
-  # @default -- '[]' (See [values.yaml])
+  # @default -- `[]` (See [values.yaml])
   extraEnvFrom: []
     # - configMapRef:
     #     name: config-map-name
@@ -2105,7 +2120,7 @@ applicationSet:
       # -- List of ingress paths
       paths:
         - /api/webhook
-      # -- Ingress path type. One of 'Exact', 'Prefix' or 'ImplementationSpecific'
+      # -- Ingress path type. One of `Exact`, `Prefix` or `ImplementationSpecific`
       pathType: Prefix
       # -- Additional ingress paths
       extraPaths: []
@@ -2143,13 +2158,13 @@ notifications:
 
   image:
     # -- Repository to use for the notifications controller
-    # @default -- '""' (defaults to global.image.repository)
+    # @default -- `""` (defaults to global.image.repository)
     repository: ""
     # -- Tag to use for the notifications controller
-    # @default -- '""' (defaults to global.image.tag)
+    # @default -- `""` (defaults to global.image.tag)
     tag: ""
     # -- Image pull policy for the notifications controller
-    # @default -- '""' (defaults to global.image.imagePullPolicy)
+    # @default -- `""` (defaults to global.image.imagePullPolicy)
     imagePullPolicy: ""
 
   # -- Secrets with credentials to pull images from a private registry
@@ -2191,11 +2206,11 @@ notifications:
     # email-password:
     # For more information: https://argocd-notifications.readthedocs.io/en/stable/services/email/
 
-  # -- Application controller log format. Either 'text' or 'json'
-  # @default -- '""' (defaults to global.logging.format)
+  # -- Application controller log format. Either `text` or `json`
+  # @default -- `""` (defaults to global.logging.format)
   logFormat: ""
-  # -- Application controller log level. One of: 'debug', 'info', 'warn', 'error'
-  # @default -- '""' (defaults to global.logging.level)
+  # -- Application controller log level. One of: `debug`, `info`, `warn`, `error`
+  # @default -- `""` (defaults to global.logging.level)
   logLevel: ""
 
   # -- Extra arguments to provide to the controller
@@ -2245,10 +2260,10 @@ notifications:
   # -- Configures notification services such as slack, email or custom webhook
   # @default -- See [values.yaml]
   ## For more information: https://argocd-notifications.readthedocs.io/en/stable/services/overview/
-  
-  notifiers: 
-  # service.slack : |
-  # token: $slack-token
+  notifiers: {}
+  # service.slack: |
+  #   token: $slack-token
+
   # -- Annotations to be applied to the controller Pods
   podAnnotations: {}
 
@@ -2288,13 +2303,279 @@ notifications:
 
   # -- Contains centrally managed global application subscriptions
   ## For more information: https://argocd-notifications.readthedocs.io/en/stable/subscriptions/
+  subscriptions: []
+    # # subscription for on-sync-status-unknown trigger notifications
+    # - recipients:
+    #   - slack:test2
+    #   - email:test@gmail.com
+    #   triggers:
+    #   - on-sync-status-unknown
+    # # subscription restricted to applications with matching labels only
+    # - recipients:
+    #   - slack:test3
+    #   selector: test=true
+  #   triggers:
+  #   - on-sync-status-unknown
+
   # -- The notification template is used to generate the notification content
   ## For more information: https://argocd-notifications.readthedocs.io/en/stable/templates/
+  templates: {}
+    # template.app-deployed: |
+    #   email:
+    #     subject: New version of an application {{.app.metadata.name}} is up and running.
+    #   message: |
+    #     {{if eq .serviceType "slack"}}:white_check_mark:{{end}} Application {{.app.metadata.name}} is now running new version of deployments manifests.
+    #   slack:
+    #     attachments: |
+    #       [{
+    #         "title": "{{ .app.metadata.name}}",
+    #         "title_link":"{{.context.argocdUrl}}/applications/{{.app.metadata.name}}",
+    #         "color": "#18be52",
+    #         "fields": [
+    #         {
+    #           "title": "Sync Status",
+    #           "value": "{{.app.status.sync.status}}",
+    #           "short": true
+    #         },
+    #         {
+    #           "title": "Repository",
+    #           "value": "{{.app.spec.source.repoURL}}",
+    #           "short": true
+    #         },
+    #         {
+    #           "title": "Revision",
+    #           "value": "{{.app.status.sync.revision}}",
+    #           "short": true
+    #         }
+    #         {{range $index, $c := .app.status.conditions}}
+    #         {{if not $index}},{{end}}
+    #         {{if $index}},{{end}}
+    #         {
+    #           "title": "{{$c.type}}",
+    #           "value": "{{$c.message}}",
+    #           "short": true
+    #         }
+    #         {{end}}
+    #         ]
+    #       }]
+    # template.app-health-degraded: |
+    #   email:
+    #     subject: Application {{.app.metadata.name}} has degraded.
+    #   message: |
+    #     {{if eq .serviceType "slack"}}:exclamation:{{end}} Application {{.app.metadata.name}} has degraded.
+    #     Application details: {{.context.argocdUrl}}/applications/{{.app.metadata.name}}.
+    #   slack:
+    #     attachments: |-
+    #       [{
+    #         "title": "{{ .app.metadata.name}}",
+    #         "title_link": "{{.context.argocdUrl}}/applications/{{.app.metadata.name}}",
+    #         "color": "#f4c030",
+    #         "fields": [
+    #         {
+    #           "title": "Sync Status",
+    #           "value": "{{.app.status.sync.status}}",
+    #           "short": true
+    #         },
+    #         {
+    #           "title": "Repository",
+    #           "value": "{{.app.spec.source.repoURL}}",
+    #           "short": true
+    #         }
+    #         {{range $index, $c := .app.status.conditions}}
+    #         {{if not $index}},{{end}}
+    #         {{if $index}},{{end}}
+    #         {
+    #           "title": "{{$c.type}}",
+    #           "value": "{{$c.message}}",
+    #           "short": true
+    #         }
+    #         {{end}}
+    #         ]
+    #       }]
+    # template.app-sync-failed: |
+    #   email:
+    #     subject: Failed to sync application {{.app.metadata.name}}.
+    #   message: |
+    #     {{if eq .serviceType "slack"}}:exclamation:{{end}}  The sync operation of application {{.app.metadata.name}} has failed at {{.app.status.operationState.finishedAt}} with the following error: {{.app.status.operationState.message}}
+    #     Sync operation details are available at: {{.context.argocdUrl}}/applications/{{.app.metadata.name}}?operation=true .
+    #   slack:
+    #     attachments: |-
+    #       [{
+    #         "title": "{{ .app.metadata.name}}",
+    #         "title_link":"{{.context.argocdUrl}}/applications/{{.app.metadata.name}}",
+    #         "color": "#E96D76",
+    #         "fields": [
+    #         {
+    #           "title": "Sync Status",
+    #           "value": "{{.app.status.sync.status}}",
+    #           "short": true
+    #         },
+    #         {
+    #           "title": "Repository",
+    #           "value": "{{.app.spec.source.repoURL}}",
+    #           "short": true
+    #         }
+    #         {{range $index, $c := .app.status.conditions}}
+    #         {{if not $index}},{{end}}
+    #         {{if $index}},{{end}}
+    #         {
+    #           "title": "{{$c.type}}",
+    #           "value": "{{$c.message}}",
+    #           "short": true
+    #         }
+    #         {{end}}
+    #         ]
+    #       }]
+    # template.app-sync-running: |
+    #   email:
+    #     subject: Start syncing application {{.app.metadata.name}}.
+    #   message: |
+    #     The sync operation of application {{.app.metadata.name}} has started at {{.app.status.operationState.startedAt}}.
+    #     Sync operation details are available at: {{.context.argocdUrl}}/applications/{{.app.metadata.name}}?operation=true .
+    #   slack:
+    #     attachments: |-
+    #       [{
+    #         "title": "{{ .app.metadata.name}}",
+    #         "title_link":"{{.context.argocdUrl}}/applications/{{.app.metadata.name}}",
+    #         "color": "#0DADEA",
+    #         "fields": [
+    #         {
+    #           "title": "Sync Status",
+    #           "value": "{{.app.status.sync.status}}",
+    #           "short": true
+    #         },
+    #         {
+    #           "title": "Repository",
+    #           "value": "{{.app.spec.source.repoURL}}",
+    #           "short": true
+    #         }
+    #         {{range $index, $c := .app.status.conditions}}
+    #         {{if not $index}},{{end}}
+    #         {{if $index}},{{end}}
+    #         {
+    #           "title": "{{$c.type}}",
+    #           "value": "{{$c.message}}",
+    #           "short": true
+    #         }
+    #         {{end}}
+    #         ]
+    #       }]
+    # template.app-sync-status-unknown: |
+    #   email:
+    #     subject: Application {{.app.metadata.name}} sync status is 'Unknown'
+    #   message: |
+    #     {{if eq .serviceType "slack"}}:exclamation:{{end}} Application {{.app.metadata.name}} sync is 'Unknown'.
+    #     Application details: {{.context.argocdUrl}}/applications/{{.app.metadata.name}}.
+    #     {{if ne .serviceType "slack"}}
+    #     {{range $c := .app.status.conditions}}
+    #         * {{$c.message}}
+    #     {{end}}
+    #     {{end}}
+    #   slack:
+    #     attachments: |-
+    #       [{
+    #         "title": "{{ .app.metadata.name}}",
+    #         "title_link":"{{.context.argocdUrl}}/applications/{{.app.metadata.name}}",
+    #         "color": "#E96D76",
+    #         "fields": [
+    #         {
+    #           "title": "Sync Status",
+    #           "value": "{{.app.status.sync.status}}",
+    #           "short": true
+    #         },
+    #         {
+    #           "title": "Repository",
+    #           "value": "{{.app.spec.source.repoURL}}",
+    #           "short": true
+    #         }
+    #         {{range $index, $c := .app.status.conditions}}
+    #         {{if not $index}},{{end}}
+    #         {{if $index}},{{end}}
+    #         {
+    #           "title": "{{$c.type}}",
+    #           "value": "{{$c.message}}",
+    #           "short": true
+    #         }
+    #         {{end}}
+    #         ]
+    #       }]
+    # template.app-sync-succeeded: |
+    #   email:
+    #     subject: Application {{.app.metadata.name}} has been successfully synced.
+    #   message: |
+    #     {{if eq .serviceType "slack"}}:white_check_mark:{{end}} Application {{.app.metadata.name}} has been successfully synced at {{.app.status.operationState.finishedAt}}.
+    #     Sync operation details are available at: {{.context.argocdUrl}}/applications/{{.app.metadata.name}}?operation=true .
+    #   slack:
+    #     attachments: |-
+    #       [{
+    #         "title": "{{ .app.metadata.name}}",
+    #         "title_link":"{{.context.argocdUrl}}/applications/{{.app.metadata.name}}",
+    #         "color": "#18be52",
+    #         "fields": [
+    #         {
+    #           "title": "Sync Status",
+    #           "value": "{{.app.status.sync.status}}",
+    #           "short": true
+    #         },
+    #         {
+    #           "title": "Repository",
+    #           "value": "{{.app.spec.source.repoURL}}",
+    #           "short": true
+    #         }
+    #         {{range $index, $c := .app.status.conditions}}
+    #         {{if not $index}},{{end}}
+    #         {{if $index}},{{end}}
+    #         {
+    #           "title": "{{$c.type}}",
+    #           "value": "{{$c.message}}",
+    #           "short": true
+    #         }
+    #         {{end}}
+  #         ]
+  #       }]
+
   # -- [Tolerations] for use with node taints
   tolerations: []
 
   # -- The trigger defines the condition when the notification should be sent
   ## For more information: https://argocd-notifications.readthedocs.io/en/stable/triggers/
+  triggers: {}
+    # trigger.on-deployed: |
+    #   - description: Application is synced and healthy. Triggered once per commit.
+    #     oncePer: app.status.sync.revision
+    #     send:
+    #     - app-deployed
+    #     when: app.status.operationState.phase in ['Succeeded'] and app.status.health.status == 'Healthy'
+    # trigger.on-health-degraded: |
+    #   - description: Application has degraded
+    #     send:
+    #     - app-health-degraded
+    #     when: app.status.health.status == 'Degraded'
+    # trigger.on-sync-failed: |
+    #   - description: Application syncing has failed
+    #     send:
+    #     - app-sync-failed
+    #     when: app.status.operationState.phase in ['Error', 'Failed']
+    # trigger.on-sync-running: |
+    #   - description: Application is being synced
+    #     send:
+    #     - app-sync-running
+    #     when: app.status.operationState.phase in ['Running']
+    # trigger.on-sync-status-unknown: |
+    #   - description: Application status is 'Unknown'
+    #     send:
+    #     - app-sync-status-unknown
+    #     when: app.status.sync.status == 'Unknown'
+    # trigger.on-sync-succeeded: |
+    #   - description: Application syncing has succeeded
+    #     send:
+    #     - app-sync-succeeded
+    #     when: app.status.operationState.phase in ['Succeeded']
+    #
+    # For more information: https://argocd-notifications.readthedocs.io/en/stable/triggers/#default-triggers
+  # defaultTriggers: |
+  #   - on-sync-status-unknown
+
   ## The optional bot component simplifies managing subscriptions
   ## For more information: https://argocd-notifications.readthedocs.io/en/stable/bots/overview/
   bots:
@@ -2309,13 +2590,13 @@ notifications:
 
       image:
         # -- Repository to use for the Slack bot
-        # @default -- '""' (defaults to global.image.repository)
+        # @default -- `""` (defaults to global.image.repository)
         repository: ""
         # -- Tag to use for the Slack bot
-        # @default -- '""' (defaults to global.image.tag)
+        # @default -- `""` (defaults to global.image.tag)
         tag: ""
         # -- Image pull policy for the Slack bot
-        # @default -- '""' (defaults to global.image.imagePullPolicy)
+        # @default -- `""` (defaults to global.image.imagePullPolicy)
         imagePullPolicy: ""
 
       # -- Secrets with credentials to pull images from a private registry
@@ -2364,4 +2645,3 @@ notifications:
 
       # -- [Node selector]
       nodeSelector: {}
-      

@@ -23,7 +23,7 @@ global:
     # -- If defined, a repository applied to all Argo CD deployments
     repository: quay.io/argoproj/argocd
     # -- Overrides the global Argo CD image tag whose default is the chart appVersion
-    tag: v2.4.15
+    tag: Select a version
     # -- If defined, a imagePullPolicy applied to all Argo CD deployments
     imagePullPolicy: IfNotPresent
   logging:
@@ -856,7 +856,7 @@ server:
 
   autoscaling:
     # -- Enable Horizontal Pod Autoscaler ([HPA]) for the Argo CD server
-    enabled: true
+    enabled: false
     # -- Minimum number of replicas for the Argo CD server [HPA]
     minReplicas: 1
     # -- Maximum number of replicas for the Argo CD server [HPA]
@@ -1252,39 +1252,31 @@ server:
     # admin.enabled indicates whether the admin user is enabled. It is enabled by default.
     # https://argo-cd.readthedocs.io/en/latest/faq/#how-to-disable-admin-user
     admin.enabled: "true"
-    dex.config: |
-    - type: OIDC
-      id: id
-      name: name
-      config:
-        issuer: issuerURL
-        clientID: clientID
-        clientSecret: clientSecret
-        basicAuthUnsupported: true
-        insecureSkipEmailVerified: true
-        insecureEnableGroups: true
-        scope:
-        - openid
-        - email
-    - type: GitHub
-      id: id
-      name: name
-      config:
-        clientID: clientId
-        clientSecret: clientSecr
-        orgs:
-        - name: org-name1
-        - name: org-name2
-      staticClients:
-      - id: greenops-sso
-        name: GreenOps SSO
-        redirectURIs:
-        - https://org.greenops.io/oauth2/callback
-        secretEnv: GREENOPS_SSO_CLIENT_SECRET
 
+    dex.config: |
+      connectors:
+        - type: OIDC
+          id: id
+          name: name
+          config:
+            issuer: issuer
+            clientID: clientid
+            clientSecret: secret
+            basicAuthUnsupported: true
+            insecureSkipEmailVerified: true
+            insecureEnableGroups: true
+            scopes:
+            - profile
+            - name
+      staticClients:
+      - id: greenops-sso
+        name: GreenOps SSO
+        secretEnv: GREENOPS_SSO_CLIENT_SECRET
+        redirectURIs:
+        - https://org.greenops.io/oauth2/callback
+        
   # -- Annotations to be added to Argo CD ConfigMap
   configAnnotations: {}
-
   # -- Argo CD rbac config ([Argo CD RBAC policy])
   ## Ref: https://github.com/argoproj/argo-cd/blob/master/docs/operator-manual/rbac.md
   rbacConfig:
@@ -1295,12 +1287,6 @@ server:
     # Role definitions and bindings are in the form:
     #   g, subject, inherited-subject
     # See https://github.com/argoproj/argo-cd/blob/master/docs/operator-manual/rbac.md for additional information.
-  policy.csv: |
-    p, group, clusters, get, */*, allow
-
-
-    g, group, role
-
   # If omitted, defaults to: '[groups]'. The scope value can be a string, or a list of strings.
   # scopes: '[cognito:groups, email]'
 
@@ -1443,7 +1429,7 @@ repoServer:
 
   autoscaling:
     # -- Enable Horizontal Pod Autoscaler ([HPA]) for the repo server
-    enabled: true
+    enabled: false
     # -- Minimum number of replicas for the repo server [HPA]
     minReplicas: 1
     # -- Maximum number of replicas for the repo server [HPA]
@@ -1904,7 +1890,7 @@ configs:
     #   -----END CERTIFICATE-----
 
     # -- Bcrypt hashed admin password
-    htpasswd -nbBC 10 "" $ARGO_PWD | tr -d ':\n' | sed 's/$2y/$2a/'
+    # htpasswd -nbBC 10 "" $ARGO_PWD | tr -d ':\n' | sed 's/$2y/$2a/'
     argocdServerAdminPassword: ""
     # -- Admin password modification time. Eg. '"2006-01-02T15:04:05Z"'
     # @default -- '""' (defaults to current time)
@@ -2260,12 +2246,9 @@ notifications:
   # @default -- See [values.yaml]
   ## For more information: https://argocd-notifications.readthedocs.io/en/stable/services/overview/
   
-  notifiers:
-    service.slack : |
-      apiURL: url
-      token: token
-      username: user
-      icon: icon
+  notifiers: 
+  # service.slack : |
+  # token: $slack-token
   # -- Annotations to be applied to the controller Pods
   podAnnotations: {}
 
@@ -2305,67 +2288,14 @@ notifications:
 
   # -- Contains centrally managed global application subscriptions
   ## For more information: https://argocd-notifications.readthedocs.io/en/stable/subscriptions/
-  subscriptions:
-  - recipients:
-    - slack:test1
-    selector: test=true
-    triggers:
-    - on-deployed
-    - on-health-degraded
-
   # -- The notification template is used to generate the notification content
   ## For more information: https://argocd-notifications.readthedocs.io/en/stable/templates/
-  templates:
-    template.app-deployed: |
-      email:
-          subject: New version of an application {{.app.metadata.name}} is up and running.
-          message: |
-            {{if eq .serviceType "slack"}}:white_check_mark:{{end}} Application {{.app.metadata.name}} is now running new version of deployments manifests.
-          slack:
-            attachments: |
-              [{
-                "title": "{{ .app.metadata.name}}",
-                "title_link":"{{.context.argocdUrl}}/applications/{{.app.metadata.name}}",
-                "color": "#18be52",
-                "fields": [
-                {
-                  "title": "Sync Status",
-                  "value": "{{.app.status.sync.status}}",
-                  "short": true
-                },
-                {
-                  "title": "Repository",
-                  "value": "{{.app.spec.source.repoURL}}",
-                  "short": true
-                },
-                {
-                  "title": "Revision",
-                  "value": "{{.app.status.sync.revision}}",
-                  "short": true
-                }
-                {{range $index, $c := .app.status.conditions}}
-                {{if not $index}},{{end}}
-                {{if $index}},{{end}}
-                {
-                  "title": "{{$c.type}}",
-                  "value": "{{$c.message}}",
-                  "short": true
-                }
-                {{end}}
-                ]
-              }]
-# -- [Tolerations] for use with node taints
+  # -- [Tolerations] for use with node taints
   tolerations: []
 
   # -- The trigger defines the condition when the notification should be sent
   ## For more information: https://argocd-notifications.readthedocs.io/en/stable/triggers/
-  triggers:
-    trigger.on-health-degraded: |
-      - description: Application has degraded
-        send:
-        - app-health-degraded
-          when: app.status.health.status == 'Degraded'
-## The optional bot component simplifies managing subscriptions
+  ## The optional bot component simplifies managing subscriptions
   ## For more information: https://argocd-notifications.readthedocs.io/en/stable/bots/overview/
   bots:
     slack:

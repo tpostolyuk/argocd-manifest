@@ -2306,9 +2306,6 @@ notifications:
   subscriptions: |
     - recipients:
       - slack:test2
-      - email:test@gmail.com
-      triggers:
-      - on-sync-status-unknown
   # -- The notification template is used to generate the notification content
   ## For more information: https://argocd-notifications.readthedocs.io/en/stable/templates/
   templates:

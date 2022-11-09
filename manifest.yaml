@@ -23,7 +23,7 @@ global:
     # -- If defined, a repository applied to all Argo CD deployments
     repository: quay.io/argoproj/argocd
     # -- Overrides the global Argo CD image tag whose default is the chart appVersion
-    tag: ""
+    tag: "v2.4.15"
     # -- If defined, a imagePullPolicy applied to all Argo CD deployments
     imagePullPolicy: IfNotPresent
   logging:
@@ -856,7 +856,7 @@ server:
 
   autoscaling:
     # -- Enable Horizontal Pod Autoscaler ([HPA]) for the Argo CD server
-    enabled: false
+    enabled: true
     # -- Minimum number of replicas for the Argo CD server [HPA]
     minReplicas: 1
     # -- Maximum number of replicas for the Argo CD server [HPA]
@@ -1253,17 +1253,17 @@ server:
     # https://argo-cd.readthedocs.io/en/latest/faq/#how-to-disable-admin-user
     admin.enabled: "true"
 
-    # dex.config: |
-    #   connectors:
-    #     # GitHub example
-    #     - type: github
-    #       id: github
-    #       name: GitHub
-    #       config:
-    #         clientID: aabbccddeeff00112233
-    #         clientSecret: $dex.github.clientSecret # Alternatively $<some_K8S_secret>:dex.github.clientSecret
-    #         orgs:
-    #         - name: your-github-org
+    dex.config: |
+      connectors:
+        # GitHub example
+        - type: github
+          id: github
+          name: GitHub
+          config:
+            clientID: aabbccddeeff00112233
+            clientSecret: $dex.github.clientSecret # Alternatively $<some_K8S_secret>:dex.github.clientSecret
+            orgs:
+            - name: your-github-org
 
     # oidc.config: |
     #   name: AzureAD
@@ -1443,7 +1443,7 @@ repoServer:
 
   autoscaling:
     # -- Enable Horizontal Pod Autoscaler ([HPA]) for the repo server
-    enabled: false
+    enabled: true
     # -- Minimum number of replicas for the repo server [HPA]
     minReplicas: 1
     # -- Maximum number of replicas for the repo server [HPA]

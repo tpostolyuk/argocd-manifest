@@ -1237,7 +1237,7 @@ server:
   # @default -- See [values.yaml]
   config:
     # Argo CD's externally facing base URL (optional). Required when configuring SSO
-    url: ""
+    url: "https://base-config.com"
     # Argo CD instance label key
     application.instanceLabelKey: argocd.argoproj.io/instance
 

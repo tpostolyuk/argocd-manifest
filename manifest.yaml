@@ -1268,7 +1268,7 @@ server:
       - id: greenops-sso
         name: GreenOps SSO
         redirectURIs:
-        - https://org.greenops.io/oauth2/callback2
+        - https://org.greenops.io/oauth2/callback
         secretEnv: GREENOPS_SSO_CLIENT_SECRET
     # oidc.config: |
     #   name: AzureAD

@@ -2293,8 +2293,17 @@ notifications:
 
   # -- Contains centrally managed global application subscriptions
   ## For more information: https://argocd-notifications.readthedocs.io/en/stable/subscriptions/
-  subscriptions: []
-  # -- The notification template is used to generate the notification content
+  subscriptions:
+    - recipients:
+      - slack:test2
+      - email:test@gmail.com
+      triggers:
+      - on-sync-status-unknown
+    - recipients:
+      - slack:test3
+      selector: test=true
+      triggers:
+      - on-sync-status-unknown
   ## For more information: https://argocd-notifications.readthedocs.io/en/stable/templates/
   templates:
     template.app-deployed: |

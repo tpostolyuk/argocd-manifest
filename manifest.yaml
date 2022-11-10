@@ -2250,9 +2250,12 @@ notifications:
   # -- Configures notification services such as slack, email or custom webhook
   # @default -- See [values.yaml]
   ## For more information: https://argocd-notifications.readthedocs.io/en/stable/services/overview/
-  notifiers: {}
-  # service.slack: |
-  #   token: $slack-token
+  notifiers:
+    service.slack: |
+      token: $slack-token
+      apiURL: https://example.com/api
+      token: $slack-token
+      username: test-user
 
   # -- Annotations to be applied to the controller Pods
   podAnnotations: {}

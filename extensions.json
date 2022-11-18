@@ -1,6 +1,4 @@
 {
-  "ext1":{"id":1,"title":"ext1","repoUrl":"https://github.com/tpostolyuk/atlas-playground.git","filePath":"manifest/manifest.yaml","namespace":"argocd"},
-  "ext2":{"id":2,"title":"ext2","repoUrl":"https://github.com/tpostolyuk/atlas-playground.git","filePath":"manifest/manifest.yaml","namespace":"argocd"},
-  "ext3":{"id":3,"title":"ext3","repoUrl":"https://github.com/tpostolyuk/atlas-playground.git","filePath":"manifest2/manifest.yaml","namespace": "argocd2"},
-  "ext4":{"id":4,"title":"ext4","repoUrl":"https://github.com/tpostolyuk/atlas-playground.git","filePath":"manifest2/manifest.yaml","namespace": "argocd2"}
+  "ext1":{"id":1,"title":"ext1","repoUrl":"https://github.com/tpostolyuk/atlas-playground.git","filePath":"manifest/manifest.yaml","namespace":"argocd2"},
+  "ext2":{"id":2,"title":"ext2","repoUrl":"https://github.com/tpostolyuk/atlas-playground.git","filePath":"manifest/manifest.yaml","namespace":"argo2"},
 }

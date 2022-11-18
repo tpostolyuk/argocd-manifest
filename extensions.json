@@ -1,6 +1,6 @@
-{
- "ext1": { "id": 1, "title": "Extension 1", "repoUrl": "https://github.com/tpostolyuk/argocd-manifest/new/main", "filePath": "manifest/manifest.yaml" },
- "ext2": { "id": 2, "title": "Extension 2", "repoUrl": "https://github.com/tpostolyuk/argocd-manifest/new/main", "filePath": "manifest/manifest.yaml" },
- "ext3": { "id": 3, "title": "Extension 3", "repoUrl": "https://github.com/tpostolyuk/argocd-manifest/new/main", "filePath": "manifest2/manifest.yaml" },
- "ext4": { "id": 4, "title": "Extension 4", "repoUrl": "https://github.com/tpostolyuk/argocd-manifest/new/main", "filePath": "manifest2/manifest.yaml" },
-}
+[
+ { "id": 1, "title": "Extension 1", "repoUrl": "https://github.com/tpostolyuk/argocd-manifest/new/main", "filePath": "manifest/manifest.yaml" },
+ { "id": 2, "title": "Extension 2", "repoUrl": "https://github.com/tpostolyuk/argocd-manifest/new/main", "filePath": "manifest/manifest.yaml" },
+ { "id": 3, "title": "Extension 3", "repoUrl": "https://github.com/tpostolyuk/argocd-manifest/new/main", "filePath": "manifest2/manifest.yaml" },
+ { "id": 4, "title": "Extension 4", "repoUrl": "https://github.com/tpostolyuk/argocd-manifest/new/main", "filePath": "manifest2/manifest.yaml" }
+]
